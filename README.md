@@ -11,18 +11,20 @@
 ## 安装
 
 ```bash
-npm install -g @rongyan/wxpost-server
+npm install -g @rongyan/wxpost-server@latest
 ```
 
-或直接通过 npx 运行（无需安装）：
+## 初始化配置
+
+首次运行以下命令，程序会自动在 `~/.@rongyan/env.json` 创建配置模板：
 
 ```bash
-npx @rongyan/wxpost-server
+wxpost-server --help
 ```
 
-## 配置
+![初始化配置](images/init.png)
 
-首次启动时，程序会自动在 `~/.@rongyan/env.json` 创建配置模板并退出。编辑该文件填入真实值后重启即可。
+编辑 `~/.@rongyan/env.json`，填入真实值：
 
 ```json
 {
@@ -52,20 +54,25 @@ npx @rongyan/wxpost-server
 ## 启动
 
 ```bash
-# 使用配置文件中的端口
+# 直接启动
 wxpost-server
 
-# 指定端口（优先级最高）
+# 指定端口
 wxpost-server --port 8080
 
 # 通过环境变量指定端口
 PORT=8080 wxpost-server
-
-# 开发模式（文件变更自动重启）
-npm run dev
 ```
 
 端口优先级：`--port 参数` > `PORT 环境变量` > `配置文件 port` > `默认 3000`
+
+### 使用 PM2（推荐生产环境）
+
+```bash
+pm2 start wxpost-server --name wxpost-server -- --port 3000
+pm2 save       # 保存进程列表
+pm2 startup    # 设置开机自启（按提示执行输出的命令）
+```
 
 ## IP 白名单
 
