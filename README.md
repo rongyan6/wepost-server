@@ -18,11 +18,20 @@ npm install -g @rongyan/wxpost-server@latest
 
 首次运行以下命令，程序会自动在 `~/.@rongyan/env.json` 创建配置模板：
 
-```bash
-wxpost-server --help
 ```
+wxpost-server --help
 
-![初始化配置](images/init.png)
+  配置文件已创建：/root/.@rongyan/env.json
+  请编辑该文件，填入你的公众号 AppID 和 AppSecret，然后重新启动。
+
+  格式说明：
+    port            — 监听端口（也可用 --port 参数或 PORT 环境变量覆盖）
+    api_key         — HTTP 接口鉴权密钥
+    upload_dir      — 本地图片存储目录（默认 ~/.@rongyan/upload_dir/）
+    log_dir         — 日志目录（默认 ~/.@rongyan/log/）
+    defaultAccount  — 默认使用的 AppID
+    accounts        — 以 AppID 为 key，每个账号填写对应的 appSecret
+```
 
 编辑 `~/.@rongyan/env.json`，填入真实值：
 
@@ -70,8 +79,12 @@ PORT=8080 wxpost-server
 
 ```bash
 pm2 start wxpost-server --name wxpost-server -- --port 3000
-pm2 save       # 保存进程列表
-pm2 startup    # 设置开机自启（按提示执行输出的命令）
+
+pm2 save                     # 保存进程列表，重启后自动恢复
+pm2 startup                  # 设置开机自启（按提示执行输出的命令）
+pm2 logs wxpost-server       # 查看日志
+pm2 restart wxpost-server
+pm2 stop wxpost-server
 ```
 
 ## IP 白名单
