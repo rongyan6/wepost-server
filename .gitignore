@@ -1,0 +1,15 @@
+node_modules/
+
+# 本地运行时生成的配置和缓存，含 AppSecret / access_token 等敏感信息，禁止提交
+env.json
+tokens.json
+
+# 日志
+*.log
+
+# npm 打包产物
+*.tgz
+
+# macOS
+.DS_Store
+.claude/

@@ -1,0 +1,46 @@
+{
+  "name": "@rongyan/wxpost-server",
+  "version": "0.1.0",
+  "description": "微信公众号内容发布服务，支持多账号，提供图片上传、草稿管理和发布等 HTTP 接口",
+  "main": "src/index.js",
+  "bin": {
+    "wxpost-server": "./bin/wxpost-server.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node bin/wxpost-server.js",
+    "dev": "node --watch bin/wxpost-server.js"
+  },
+  "keywords": [
+    "wechat",
+    "weixin",
+    "wxpost",
+    "mp",
+    "server",
+    "draft",
+    "publish"
+  ],
+  "author": "rongyan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rongyan6/wepost-server.git"
+  },
+  "homepage": "https://github.com/rongyan6/wepost-server#readme",
+  "bugs": {
+    "url": "https://github.com/rongyan6/wepost-server/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0"
+  }
+}
