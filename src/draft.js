@@ -36,10 +36,9 @@ function validateArticle(a, idx) {
     if (a.digest.length > 128) return `${p}.digest 最多 128 字，当前 ${a.digest.length} 字`;
   }
 
-  // content：必填，最多 2 万字
+  // content：必填
   if (!a.content) return `${p}.content 必填`;
   if (typeof a.content !== 'string') return `${p}.content 须为字符串`;
-  if (a.content.length > 20000) return `${p}.content 最多 2 万字，当前 ${a.content.length} 字`;
 
   // content_source_url：选填
   if (a.content_source_url !== undefined && typeof a.content_source_url !== 'string') {

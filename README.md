@@ -223,7 +223,7 @@ curl -X POST http://localhost:3000/upload-material \
 | `title` | string | 是 | 超过 64 字自动截断 |
 | `author` | string | 否 | 最多 16 字 |
 | `digest` | string | 否 | 摘要，最多 128 字；不填则从正文自动截取 |
-| `content` | string | 是 | 正文 HTML，最多 2 万字 |
+| `content` | string | 是 | 正文 HTML |
 | `content_source_url` | string | 否 | 点击"阅读原文"跳转的 URL |
 | `thumb_media_id` | string | news 类型必填 | 封面图的永久素材 MediaID |
 | `image_info` | object | newspic 类型必填 | 图片列表，`{ "list": [...] }`，最多 20 张 |

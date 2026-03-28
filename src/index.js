@@ -14,7 +14,7 @@ const { addImageMaterial, MAX_SIZE: MATERIAL_MAX_SIZE } = require('./material');
 const { checkApiKey } = require('./auth');
 const logger = require('./logger');
 
-const BODY_LIMIT = 2 * 1024 * 1024; // 2MB
+const BODY_LIMIT = 20 * 1024 * 1024; // 20MB，正文富文本可能较大，具体长度由微信 API 判定
 
 function sendJSON(res, statusCode, data) {
   if (statusCode >= 400 && data.error) res._logError = data.error;
@@ -80,7 +80,8 @@ function receiveFile(req, res, account, sizeLimit, processor, sizeLimitLabel) {
   let settled = false;
 
   bb.on('file', (_fieldname, stream, info) => {
-    const { filename } = info;
+    // busboy 以 binary 解析 multipart filename，需还原为 UTF-8
+    const filename = Buffer.from(info.filename, 'binary').toString('utf-8');
     const chunks = [];
 
     stream.on('data', (chunk) => chunks.push(chunk));

@@ -32,7 +32,7 @@ function getStream() {
   }
 
   const logFile = path.join(_logDir, `${today}.log`);
-  _stream = fs.createWriteStream(logFile, { flags: 'a', encoding: 'utf-8' });
+  _stream = fs.createWriteStream(logFile, { flags: 'a' });
   _stream.on('error', () => {
     // 写文件出错（如磁盘满）时重置 stream，下次重试创建；不崩进程
     _stream = null;
@@ -62,14 +62,19 @@ function pruneOldLogs(logDir) {
   }
 }
 
+function formatLocalTime(d) {
+  const pad2 = (n) => String(n).padStart(2, '0');
+  const pad3 = (n) => String(n).padStart(3, '0');
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())} ` +
+         `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}.${pad3(d.getMilliseconds())}`;
+}
+
 function write(level, message) {
-  const now = new Date();
-  const ts = now.toISOString().replace('T', ' ').slice(0, 23);
-  const line = `[${ts}] [${level}] ${message}\n`;
-  process.stdout.write(line);
+  const line = `[${formatLocalTime(new Date())}] [${level}] ${message}\n`;
+  process.stdout.write(Buffer.from(line, 'utf-8'));
   try {
     const stream = getStream();
-    if (stream) stream.write(line);
+    if (stream) stream.write(Buffer.from(line, 'utf-8'));
   } catch {
     // 写文件失败不影响主流程
   }
